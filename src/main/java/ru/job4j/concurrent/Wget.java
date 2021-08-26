@@ -31,12 +31,13 @@ public class Wget implements Runnable {
             long time1 = System.currentTimeMillis();
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 long time2 = System.currentTimeMillis();
-                if ((time2 - time1) < speed)
+                if ((time2 - time1) < speed) {
                     try {
                         Thread.sleep(speed - (time2 - time1));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                }
                 time1 = System.currentTimeMillis();
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
@@ -44,6 +45,7 @@ public class Wget implements Runnable {
             Thread.currentThread().interrupt();
         }
     }
+
 
     public static void main(String[] args) {
         String url = args[0];
