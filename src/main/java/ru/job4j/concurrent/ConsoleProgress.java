@@ -15,17 +15,15 @@ public class ConsoleProgress implements Runnable {
 
     @Override
     public void run() {
+        String[] array = {"-", "\\", "|", "/",};
         while (!Thread.currentThread().isInterrupted()) {
-            char[] array = {45, 92, 124, 47,};
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    for (char c : array) {
-                        System.out.print("\rLoading : " + c);
-                        Thread.sleep(500);
-                    }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+            try {
+                for (String s : array) {
+                    System.out.print("\rLoading : " + s);
+                    Thread.sleep(400);
                 }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
     }
