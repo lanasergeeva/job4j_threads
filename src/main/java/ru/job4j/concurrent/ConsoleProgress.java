@@ -15,7 +15,7 @@ public class ConsoleProgress implements Runnable {
 
     @Override
     public void run() {
-        String[] array = {"-", "\\", "|", "/",};
+        String[] array = {"-", "\\", "|", "/"};
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 for (String s : array) {
