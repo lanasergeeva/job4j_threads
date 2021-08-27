@@ -8,37 +8,31 @@ import java.net.URL;
 public class Wget implements Runnable {
     private final String url;
     private final int speed;
+    private String fileName;
 
-    public Wget(String url, int speed) {
+    public Wget(String url, int speed, String fileName) {
         this.url = url;
         this.speed = speed;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public int getSpeed() {
-        return speed;
+        this.fileName = fileName;
     }
 
     @Override
     public void run() {
         try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-             FileOutputStream fileOutputStream = new FileOutputStream("download.xml")) {
+             FileOutputStream fileOutputStream = new FileOutputStream(fileName)) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
-            long time1 = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                long time2 = System.currentTimeMillis();
-                if ((time2 - time1) < speed) {
+                long finish = System.currentTimeMillis();
+                if ((finish - start) < speed) {
                     try {
-                        Thread.sleep(speed - (time2 - time1));
+                        Thread.sleep(speed - (finish - start));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                time1 = System.currentTimeMillis();
+                start = System.currentTimeMillis();
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
             }
         } catch (IOException e) {
@@ -48,9 +42,14 @@ public class Wget implements Runnable {
 
 
     public static void main(String[] args) {
+        if (args.length < 3) {
+            throw new IllegalArgumentException("Not enough parameters. " +
+                    "You need write three parameters - url, speed and name of file for downloading");
+        }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
-        Thread wget = new Thread(new Wget(url, speed));
+        String name = args[2];
+        Thread wget = new Thread(new Wget(url, speed, name));
         wget.start();
         try {
             wget.join();
