@@ -43,8 +43,8 @@ public class Wget implements Runnable {
 
     public static void main(String[] args) {
         if (args.length < 3) {
-            throw new IllegalArgumentException("Not enough parameters. " +
-                    "You need write three parameters - url, speed and name of file for downloading");
+            throw new IllegalArgumentException("Not enough parameters. "
+                    + "You need write three parameters - url, speed and name of file for downloading");
         }
         String url = args[0];
         int speed = Integer.parseInt(args[1]);
