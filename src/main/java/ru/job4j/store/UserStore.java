@@ -2,51 +2,38 @@ package ru.job4j.store;
 
 import net.jcip.annotations.*;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ThreadSafe
 public class UserStore {
     @GuardedBy("this")
-    List<User> list = new LinkedList<>();
+    private final Map<Integer, User> store = new ConcurrentHashMap<>();
 
     public synchronized boolean add(User user) {
-        return list.add(user);
+        return store.putIfAbsent(user.getId(), user) == null;
     }
 
     public synchronized boolean update(User user) {
-        boolean rsl = false;
-        for (User us : list) {
-            if (us.getId() == user.getId()) {
-                us.setAmount(user.getAmount());
-                rsl = true;
-            }
-        }
-        return rsl;
+        int key = user.getId();
+        return store.replace(key, store.get(key), user);
     }
 
     public synchronized boolean delete(User user) {
-        boolean rsl = false;
-        for (User us : list) {
-            if (us.getId() == user.getId()) {
-                list.remove(us);
-                rsl = true;
-            }
-        }
-        return rsl;
+        return store.remove(user.getId(), user);
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
-        int temp = 0;
-        for (User us : list) {
-            if (us.getId() == fromId && us.getAmount() >= amount) {
-                us.setAmount(us.getAmount() - amount);
-                temp++;
-            } else if (us.getId() == toId) {
-                us.setAmount(us.getAmount() + amount);
-                temp++;
-            }
+        boolean rsl = false;
+        User from = store.get(fromId);
+        User to = store.get(toId);
+        if (from.getAmount() < amount) {
+            System.out.println("It`s not enough money for transfer");
+        } else {
+            from.setAmount(from.getAmount() - amount);
+            to.setAmount(to.getAmount() + amount);
+            rsl = true;
         }
-        return temp == 2;
+        return rsl;
     }
 }

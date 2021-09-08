@@ -25,4 +25,11 @@ public class User {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", amount=" + amount +
+                '}';
+    }
 }
