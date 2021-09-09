@@ -25,17 +25,17 @@ public class UserStore {
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean rsl = false;
-       if(store.get(fromId) != null && store.get(toId) != null) {
-           User from = store.get(fromId);
-           User to = store.get(toId);
-           if (from.getAmount() < amount) {
-               System.out.println("It`s not enough money for transfer");
-           } else {
-               from.setAmount(from.getAmount() - amount);
-               to.setAmount(to.getAmount() + amount);
-               rsl = true;
-           }
-       }
+        if (store.get(fromId) != null && store.get(toId) != null) {
+            User from = store.get(fromId);
+            User to = store.get(toId);
+            if (from.getAmount() < amount) {
+                System.out.println("It`s not enough money for transfer");
+            } else {
+                from.setAmount(from.getAmount() - amount);
+                to.setAmount(to.getAmount() + amount);
+                rsl = true;
+            }
+        }
         return rsl;
     }
 
