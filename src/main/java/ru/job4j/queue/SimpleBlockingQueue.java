@@ -1,6 +1,7 @@
 package ru.job4j.queue;
 
 import net.jcip.annotations.GuardedBy;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -31,18 +32,14 @@ public class SimpleBlockingQueue<T> {
         }
     }
 
-    public T poll() {
+    public T poll() throws InterruptedException {
         synchronized (monitor) {
             while (queue.size() < 1) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                wait();
             }
-            T temp = queue.poll();
-            System.out.println("Consumer take " + temp);
             monitor.notify();
+            T temp = queue.poll();
+            System.out.println("Consumer add " + temp);
             return temp;
         }
     }
