@@ -9,7 +9,7 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < 8; i++) {
             try {
                 queue.poll();
                 Thread.sleep(1000);

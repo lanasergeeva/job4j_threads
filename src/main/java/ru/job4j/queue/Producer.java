@@ -10,12 +10,12 @@ public class Producer implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < 8; i++) {
             index++;
             try {
                 queue.offer(index);
                 Thread.sleep(1000);
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }

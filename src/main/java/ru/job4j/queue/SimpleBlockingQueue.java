@@ -1,7 +1,6 @@
 package ru.job4j.queue;
 
 import net.jcip.annotations.GuardedBy;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
