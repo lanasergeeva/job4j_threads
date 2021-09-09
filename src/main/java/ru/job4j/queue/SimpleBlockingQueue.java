@@ -43,4 +43,8 @@ public class SimpleBlockingQueue<T> {
             return temp;
         }
     }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
 }
