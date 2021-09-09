@@ -7,9 +7,9 @@ import java.util.Queue;
 
 public class SimpleBlockingQueue<T> {
     @GuardedBy("this")
-    private Queue<T> queue = new LinkedList<>();
+    private final Queue<T> queue = new LinkedList<>();
     private final Object monitor = this;
-    private int capacity;
+    private final int capacity;
 
     public SimpleBlockingQueue(int capacity) {
         this.capacity = capacity;
