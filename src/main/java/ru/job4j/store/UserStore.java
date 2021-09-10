@@ -25,9 +25,9 @@ public class UserStore {
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean rsl = false;
-        if (store.get(fromId) != null && store.get(toId) != null) {
-            User from = store.get(fromId);
-            User to = store.get(toId);
+        User from = store.get(fromId);
+        User to = store.get(toId);
+        if (from != null && to != null) {
             if (from.getAmount() < amount) {
                 System.out.println("It`s not enough money for transfer");
             } else {
@@ -35,16 +35,9 @@ public class UserStore {
                 to.setAmount(to.getAmount() + amount);
                 rsl = true;
             }
+        } else {
+            System.out.println("Wrong id in parameters");
         }
         return rsl;
-    }
-
-    public static void main(String[] args) {
-        User user = null;
-        User user2 = new User(1, 50);
-        UserStore st = new UserStore();
-        st.add(user);
-        st.add(user2);
-        System.out.println(st.transfer(1, 2, 25));
     }
 }
