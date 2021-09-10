@@ -15,15 +15,10 @@ public class SimpleBlockingQueue<T> {
         this.capacity = capacity;
     }
 
-    public void offer(T value) {
+    public void offer(T value) throws InterruptedException {
         synchronized (monitor) {
             while (queue.size() == capacity) {
-                try {
                     wait();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
             queue.offer(value);
             System.out.println("Producer add " + value);
