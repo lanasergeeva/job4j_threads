@@ -14,7 +14,7 @@ public class FindIndexTest {
         int value = -1;
         int index = 22;
         for (int i = 0; i < arrayMain.length; i++) {
-            if(arrayMain[i] == index) {
+            if (arrayMain[i] == index) {
                 value = i;
             }
         }
