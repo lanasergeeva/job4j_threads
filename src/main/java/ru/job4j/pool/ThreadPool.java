@@ -6,16 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ThreadPool {
+    private int size = Runtime.getRuntime().availableProcessors();
     private final List<Thread> threads = new LinkedList<>();
-    private final SimpleBlockingQueue<Runnable> tasks;
+    private SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(size);
 
     public ThreadPool() {
-        int size = Runtime.getRuntime().availableProcessors();
-        this.tasks = new SimpleBlockingQueue<>(size);
-    }
-
-    public void runs() {
-        while (!tasks.isEmpty()) {
+        for (int i = 0; i < size; i++) {
             Thread thread = new Thread(
                     () -> {
                         while (!Thread.currentThread().isInterrupted()) {
@@ -32,6 +28,7 @@ public class ThreadPool {
         }
     }
 
+
     public void work(Runnable job) throws InterruptedException {
         tasks.offer(job);
     }
@@ -40,37 +37,5 @@ public class ThreadPool {
         for (Thread thread : threads) {
             thread.interrupt();
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        ThreadPool tp = new ThreadPool();
-        Thread thread1 = new Thread(
-                () -> {
-                    try {
-                        System.out.println("Start thread1 ... ");
-                        Thread.sleep(3000);
-                        System.out.println("End of thread1.");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
-        Thread thread2 = new Thread(
-                () -> {
-                    try {
-                        System.out.println("Start thread2 ... ");
-                        Thread.sleep(1000);
-                        System.out.println("End of thread2.");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-        );
-
-        tp.work(thread1);
-        tp.work(thread2);
-        tp.runs();
-        Thread.sleep(5000);
-        tp.shutdown();
     }
 }
