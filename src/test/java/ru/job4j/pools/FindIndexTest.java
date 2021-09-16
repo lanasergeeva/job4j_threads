@@ -11,14 +11,24 @@ public class FindIndexTest {
     @Test
     public void whenMax() {
         int[] arrayMain = getInitArray(30);
-        int value = -1;
         int index = 22;
-        for (int i = 0; i < arrayMain.length; i++) {
-            if (arrayMain[i] == index) {
-                value = i;
-            }
-        }
         int rsl = indexSearch(arrayMain, index);
-        assertThat(rsl, is(value));
+        assertThat(rsl, is(21));
+    }
+
+    @Test
+    public void whenLessThan10() {
+        int[] arrayMain = getInitArray(9);
+        int index = 6;
+        int rsl = indexSearch(arrayMain, index);
+        assertThat(rsl, is(5));
+    }
+
+    @Test
+    public void whenLengthIsOne() {
+        int[] arrayMain = getInitArray(1);
+        int index = 1;
+        int rsl = indexSearch(arrayMain, index);
+        assertThat(rsl, is(0));
     }
 }

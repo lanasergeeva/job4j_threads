@@ -19,17 +19,18 @@ public class FindIndex extends RecursiveTask<Integer> {
 
     @Override
     protected Integer compute() {
-        int rsl;
+        int rsl = -1;
         if (from == to) {
-            return array[0];
+            return 0;
         }
-        if (to - from < 10) {
+        if (to - from <= 10) {
             for (int i = from; i <= to; i++) {
                 if (array[i] == index) {
                     rsl = i;
                     return rsl;
                 }
             }
+            return rsl;
         }
         int mid = (from + to) / 2;
         FindIndex leftSort = new FindIndex(array, from, mid, index);
