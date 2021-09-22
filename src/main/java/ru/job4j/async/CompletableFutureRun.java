@@ -3,7 +3,7 @@ package ru.job4j.async;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-public class CompletableFutureExample {
+public class CompletableFutureRun {
 
     private static void iWork() throws InterruptedException {
         int count = 0;
