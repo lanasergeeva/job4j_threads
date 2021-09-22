@@ -4,4 +4,8 @@
 
 [![codecov](https://codecov.io/gh/lanasergeeva/job4j_threads/branch/master/graph/badge.svg?token=T19BBKCMMH)](https://codecov.io/gh/lanasergeeva/job4j_threads)
 
-В курсе производилась работа с веткамы git
+В курсе производилась работа с ветками git 1 задание
+
+Добавила ветку с именем task_139840 через idea.
+
+Внесла изменения.
