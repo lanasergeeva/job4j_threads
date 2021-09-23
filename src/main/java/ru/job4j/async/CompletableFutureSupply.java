@@ -1,2 +1,4 @@
-package ru.job4j.async;public class CompletableFutureSupply {
+package ru.job4j.async;
+
+public class CompletableFutureSupply {
 }
