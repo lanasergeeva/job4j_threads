@@ -5,12 +5,12 @@ import ru.job4j.queue.SimpleBlockingQueue;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ThreadPool {
+public class ThreadPoolEx {
     private int size = Runtime.getRuntime().availableProcessors();
     private final List<Thread> threads = new LinkedList<>();
     private SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(size);
 
-    public ThreadPool() {
+    public ThreadPoolEx() {
         for (int i = 0; i < size; i++) {
             Thread thread = new Thread(
                     () -> {
