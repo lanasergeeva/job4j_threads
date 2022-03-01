@@ -1,5 +1,9 @@
 package ru.job4j.queue;
 
+/**
+ * Потребитель 8 раз берет из очереди значение.
+ * Берет 1 элемент, спит секунду и продолжает работу.
+ */
 public class Consumer implements Runnable {
     private final SimpleBlockingQueue<Integer> queue;
 
@@ -9,7 +13,7 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < queue.getCapacity(); i++) {
             try {
                 queue.poll();
                 Thread.sleep(1000);

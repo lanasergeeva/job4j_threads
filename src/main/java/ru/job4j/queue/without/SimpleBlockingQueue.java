@@ -1,4 +1,4 @@
-package ru.job4j.queue;
+package ru.job4j.queue.without;
 
 import net.jcip.annotations.GuardedBy;
 
@@ -6,12 +6,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class SimpleBlockingQueue<T> {
+
     @GuardedBy("this")
     private final Queue<T> queue = new LinkedList<>();
     private final Object monitor = this;
     private final int capacity;
 
     public SimpleBlockingQueue(int capacity) {
+
         this.capacity = capacity;
     }
 
@@ -30,6 +32,7 @@ public class SimpleBlockingQueue<T> {
     public void offer(T value) throws InterruptedException {
         synchronized (monitor) {
             while (queue.size() == capacity) {
+                System.out.println("Producer ждет");
                 wait();
             }
             queue.offer(value);
@@ -50,6 +53,7 @@ public class SimpleBlockingQueue<T> {
     public T poll() throws InterruptedException {
         synchronized (monitor) {
             while (queue.isEmpty()) {
+                System.out.println("Consumer ждет");
                 wait();
             }
             monitor.notify();

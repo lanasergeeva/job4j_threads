@@ -1,5 +1,9 @@
 package ru.job4j.queue;
 
+/**
+ * Поставщик. Доблавляет 8 значений index в очередь.
+ * Добавлляет 1 элемент - спит секунду.
+ */
 public class Producer implements Runnable {
     private final SimpleBlockingQueue<Integer> queue;
     private int index;

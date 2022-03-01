@@ -2,7 +2,9 @@ package ru.job4j;
 
 public class CountBarrier {
     private final Object monitor = this;
-
+    /**
+     * Переменная total содержит количество вызовов метода count().
+     */
     private final int total;
 
     private int count = 0;
